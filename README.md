@@ -1,4 +1,4 @@
-miniblog
+SF3 Miniblog
 ========
 
-A Symfony project created on January 12, 2017, 10:05 am.
+This is a tiny project made to exercise our SF3 level during the Web developer LP 2016-2017.
