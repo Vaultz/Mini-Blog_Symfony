@@ -1,4 +1,5 @@
 <?php
+use Doctrine\Common\Collections\ArrayCollection;
 
 namespace PublicBundle\Entity;
 
@@ -28,6 +29,15 @@ class Category
      */
     private $name;
 
+    /**
+    * One Category has Many Articles.
+    * @ORM\OneToMany(targetEntity="Article", mappedBy="category")
+    */
+    private $articles;
+
+    public function __construct() {
+      $this->articles = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -63,4 +73,3 @@ class Category
         return $this->name;
     }
 }
-

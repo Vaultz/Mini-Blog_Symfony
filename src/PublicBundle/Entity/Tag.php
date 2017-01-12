@@ -1,4 +1,5 @@
 <?php
+use Doctrine\Common\Collections\ArrayCollection;
 
 namespace PublicBundle\Entity;
 
@@ -28,6 +29,16 @@ class Tag
      */
     private $name;
 
+    /**
+    * Many Tags have Many Articles.
+    * @ORM\ManyToMany(targetEntity="Article", inversedBy="tags")
+    * @ORM\JoinTable(name="tags_articles")
+    */
+    private $articles;
+
+    public function __construct() {
+      $this->articles = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -63,4 +74,3 @@ class Tag
         return $this->name;
     }
 }
-

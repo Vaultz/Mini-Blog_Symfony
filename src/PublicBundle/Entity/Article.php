@@ -1,4 +1,5 @@
 <?php
+use Doctrine\Common\Collections\ArrayCollection;
 
 namespace PublicBundle\Entity;
 
@@ -48,6 +49,32 @@ class Article
     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
     */
     private $user;
+
+    /**
+    * One Article has Many Comments.
+    * @ORM\OneToMany(targetEntity="Comment", mappedBy="article")
+    */
+    private $comments;
+
+    /**
+    * Many Articles have One Category.
+    * @ORM\ManyToOne(targetEntity="Category", inversedBy="articles")
+    * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+    */
+    private $category;
+
+    /**
+    * Many Articles have Many Tags.
+    * @ORM\ManyToMany(targetEntity="Tag", inversedBy="articles")
+    * @ORM\JoinTable(name="articles_tags")
+    */
+    private $tags;
+
+
+    public function __construct() {
+      $this->features = new ArrayCollection();
+      $this->tags = new ArrayCollection();
+    }
 
     /**
      * Get id

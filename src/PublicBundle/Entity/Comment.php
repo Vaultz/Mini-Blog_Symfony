@@ -37,6 +37,14 @@ class Comment
 
 
     /**
+    * Many Comments have One Article.
+    * @ORM\ManyToOne(targetEntity="Article", inversedBy="comments")
+    * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
+    **/
+    private $article;
+
+
+    /**
      * Get id
      *
      * @return int
@@ -94,4 +102,3 @@ class Comment
         return $this->date;
     }
 }
-
