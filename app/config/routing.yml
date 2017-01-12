@@ -1,3 +1,23 @@
+public_user:
+    resource: "@PublicBundle/Controller/UserController.php"
+    type:     annotation
+
+public_tag:
+    resource: "@PublicBundle/Controller/TagController.php"
+    type:     annotation
+
+public_comment:
+    resource: "@PublicBundle/Controller/CommentController.php"
+    type:     annotation
+
+public_category:
+    resource: "@PublicBundle/Controller/CategoryController.php"
+    type:     annotation
+
+public_article:
+    resource: "@PublicBundle/Controller/ArticleController.php"
+    type:     annotation
+
 admin:
     resource: "@AdminBundle/Controller/"
     type:     annotation
