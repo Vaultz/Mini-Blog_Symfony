@@ -14,4 +14,15 @@ class DefaultController extends Controller
     {
         return $this->render('AdminBundle:Default:index.html.twig');
     }
+
+    /**
+     * @Route("/administration", name="administration")
+     */
+    public function adminAction()
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Access denied : you\'re not logged in !');
+        return $this->render('AdminBundle:Default:index.html.twig');
+    }
+
+
 }

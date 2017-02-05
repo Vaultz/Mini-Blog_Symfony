@@ -1,15 +1,17 @@
 <?php
+
 namespace PublicBundle\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tag
+ * Category
  *
- * @ORM\Table(name="tag")
- * @ORM\Entity(repositoryClass="PublicBundle\Repository\TagRepository")
+ * @ORM\Table(name="category")
+ * @ORM\Entity(repositoryClass="PublicBundle\Repository\CategoryRepository")
  */
-class Tag
+class Category
 {
     /**
      * @var int
@@ -28,9 +30,8 @@ class Tag
     private $name;
 
     /**
-    * Many Tags have Many Articles.
-    * @ORM\ManyToMany(targetEntity="Article", inversedBy="tags")
-    * @ORM\JoinTable(name="tags_articles")
+    * One Category has Many Articles.
+    * @ORM\OneToMany(targetEntity="Article", mappedBy="category")
     */
     private $articles;
 
@@ -53,7 +54,7 @@ class Tag
      *
      * @param string $name
      *
-     * @return Tag
+     * @return Category
      */
     public function setName($name)
     {
@@ -70,39 +71,5 @@ class Tag
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Add article
-     *
-     * @param \PublicBundle\Entity\Article $article
-     *
-     * @return Tag
-     */
-    public function addArticle(\PublicBundle\Entity\Article $article)
-    {
-        $this->articles[] = $article;
-
-        return $this;
-    }
-
-    /**
-     * Remove article
-     *
-     * @param \PublicBundle\Entity\Article $article
-     */
-    public function removeArticle(\PublicBundle\Entity\Article $article)
-    {
-        $this->articles->removeElement($article);
-    }
-
-    /**
-     * Get articles
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getArticles()
-    {
-        return $this->articles;
     }
 }

@@ -1,1 +1,8 @@
-Hello World!
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	Bonjour, {{ app.user.username }} ; que voulez-vous faire ?	
+    <a href="{{ path('article_new') }}">Nouvel article</a>
+    <a href="{{ path('tag_new') }}">Nouveau tag</a>
+    <a href="{{ path('category_new') }}">Nouvelle catégorie</a>
+{% endblock %}

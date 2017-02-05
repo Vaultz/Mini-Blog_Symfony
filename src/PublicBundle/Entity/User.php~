@@ -141,38 +141,4 @@ class User implements UserInterface, \Serializable
             $this->password,
         ) = unserialize($serialized);
     }
-
-    /**
-     * Add article
-     *
-     * @param \PublicBundle\Entity\Article $article
-     *
-     * @return User
-     */
-    public function addArticle(\PublicBundle\Entity\Article $article)
-    {
-        $this->articles[] = $article;
-
-        return $this;
-    }
-
-    /**
-     * Remove article
-     *
-     * @param \PublicBundle\Entity\Article $article
-     */
-    public function removeArticle(\PublicBundle\Entity\Article $article)
-    {
-        $this->articles->removeElement($article);
-    }
-
-    /**
-     * Get articles
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getArticles()
-    {
-        return $this->articles;
-    }
 }

@@ -101,28 +101,4 @@ class Comment
     {
         return $this->date;
     }
-
-    /**
-     * Set article
-     *
-     * @param \PublicBundle\Entity\Article $article
-     *
-     * @return Comment
-     */
-    public function setArticle(\PublicBundle\Entity\Article $article = null)
-    {
-        $this->article = $article;
-
-        return $this;
-    }
-
-    /**
-     * Get article
-     *
-     * @return \PublicBundle\Entity\Article
-     */
-    public function getArticle()
-    {
-        return $this->article;
-    }
 }

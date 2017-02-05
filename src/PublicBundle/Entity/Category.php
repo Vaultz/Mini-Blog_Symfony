@@ -1,8 +1,8 @@
 <?php
-use Doctrine\Common\Collections\ArrayCollection;
 
 namespace PublicBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -71,5 +71,39 @@ class Category
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Add article
+     *
+     * @param \PublicBundle\Entity\Article $article
+     *
+     * @return Category
+     */
+    public function addArticle(\PublicBundle\Entity\Article $article)
+    {
+        $this->articles[] = $article;
+
+        return $this;
+    }
+
+    /**
+     * Remove article
+     *
+     * @param \PublicBundle\Entity\Article $article
+     */
+    public function removeArticle(\PublicBundle\Entity\Article $article)
+    {
+        $this->articles->removeElement($article);
+    }
+
+    /**
+     * Get articles
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticles()
+    {
+        return $this->articles;
     }
 }
