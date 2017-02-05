@@ -46,4 +46,7 @@ security:
     access_control:
         #ROLE_USER required to access admin panel
         - { path: ^/administration, roles: IS_AUTHENTICATED_REMEMBERED }
+        - { path: ^/article, roles: IS_AUTHENTICATED_REMEMBERED }
+        - { path: ^/tag, roles: IS_AUTHENTICATED_REMEMBERED }
+        - { path: ^/category, roles: IS_AUTHENTICATED_REMEMBERED }
 

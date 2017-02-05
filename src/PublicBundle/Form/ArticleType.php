@@ -29,8 +29,8 @@ class ArticleType extends AbstractType
             //     array(
             //         'class' => 'PublicBundle:Tag',
             //         'choice_label' => 'name',
-            //         )
-            //     )        
+            //     )
+            // )        
             ;
     }
     
