@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;  
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 
 class ArticleType extends AbstractType
@@ -18,7 +19,16 @@ class ArticleType extends AbstractType
         $builder
             ->add('name')
             ->add('content')
-            ->add('date')
+            ->add('date', DateType::class, 
+                array(
+                    'placeholder' => array(
+                        'day' => 'Jour',
+                        'month' => 'Mois',
+                        'year' => 'Année',
+                        ),
+                    'format' => 'ddMMyyy',
+                    )
+                )
             ->add('category', EntityType::class,
                 array(
                     'class' => 'PublicBundle:Category',
