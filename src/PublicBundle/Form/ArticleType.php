@@ -25,11 +25,12 @@ class ArticleType extends AbstractType
                     'choice_label' => 'name',
                     )
                 )
-            ->add('tags', EntityType::class,
-                array(
-                    'class' => 'PublicBundle:Tag'
-                    )
-                )        
+            // ->add('tags', EntityType::class,
+            //     array(
+            //         'class' => 'PublicBundle:Tag',
+            //         'choice_label' => 'name',
+            //         )
+            //     )        
             ;
     }
     
