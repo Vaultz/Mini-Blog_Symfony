@@ -14,22 +14,40 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class ArticleController extends Controller
 {
-    /**
-     * Lists all article entities.
-     *
-     * @Route("/", name="article_index")
-     * @Method("GET")
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
+  /**
+   * Lists all article entities.
+   *
+   * @Route("/", name="article_index")
+   * @Method("GET")
+   */
+  public function indexAction()
+  {
+      $em = $this->getDoctrine()->getManager();
 
-        $articles = $em->getRepository('PublicBundle:Article')->findAll();
+      $articles = $em->getRepository('PublicBundle:Article')->findAll();
 
-        return $this->render('article/index.html.twig', array(
-            'articles' => $articles,
-        ));
-    }
+      return $this->render('article/index.html.twig', array(
+          'articles' => $articles,
+      ));
+  }
+
+  /**
+   * Lists the 5 last articles.
+   *
+   * @Route("/recent", name="article_recent")
+   * @Method("GET")
+   */
+  public function recentAction()
+  {
+      $em = $this->getDoctrine()->getManager();
+      $lastFiveArticles = $em->getRepository('PublicBundle:Article')->getLastFiveArticles();
+
+      return $this->render('article/recent.html.twig', array(
+          'lastFiveArticles' => $lastFiveArticles,
+      ));
+  }
+
+
 
     /**
      * Creates a new article entity.

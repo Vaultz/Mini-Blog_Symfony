@@ -15,22 +15,26 @@
             {'attr': {
                 'for': 'textarea1',
         }}) }}
-        
-        {{ form_widget(form.content, 
+
+        {{ form_widget(form.content,
             {'attr': {
                 'class':'materialize-textarea',
-        }}) 
+        }})
         }}
         </div>
 
 
         {{ form_label(form.date, 'Date de publication') }}
         {{ form_widget(form.date, { 'attr': {'class': 'browser-default'}}) }}
-        
+
 
         {{ form_label(form.category, 'Catégorie de l\'article') }}
         {{ form_widget(form.category, { 'attr': {'class': 'category-selector'}}) }}
-        
+
+        Tags
+        {{ form_label(form.tags, 'Tags') }}
+        {{ form_widget(form.tags, { 'attr': {'class': 'category-selector'}}) }}
+
         <input type="submit" value="Create" />
     {{ form_end(form) }}
 

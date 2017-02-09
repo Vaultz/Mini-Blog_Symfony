@@ -4,7 +4,7 @@ namespace PublicBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;  
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 
@@ -19,7 +19,7 @@ class ArticleType extends AbstractType
         $builder
             ->add('name')
             ->add('content')
-            ->add('date', DateType::class, 
+            ->add('date', DateType::class,
                 array(
                     'placeholder' => array(
                         'day' => 'Jour',
@@ -33,17 +33,18 @@ class ArticleType extends AbstractType
                 array(
                     'class' => 'PublicBundle:Category',
                     'choice_label' => 'name',
-                    )
+                  )
+            )
+            ->add('tags', EntityType::class,
+                array(
+                    'class' => 'PublicBundle:Tag',
+                    'choice_label' => 'name',
+                    'multiple' => true
                 )
-            // ->add('tags', EntityType::class,
-            //     array(
-            //         'class' => 'PublicBundle:Tag',
-            //         'choice_label' => 'name',
-            //     )
-            // )        
+            )
             ;
     }
-    
+
     /**
      * {@inheritdoc}
      */

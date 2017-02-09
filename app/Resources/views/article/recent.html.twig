@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Les derniers articles</h1>
+
+
+
+    <ul>
+      {% for article in lastFiveArticles %}
+        <li>
+          <a href="{{ path('article_show', {'id':article.id}) }}">  {{ article.name }} </a>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <script>
+
+    </script>
+{% endblock %}
