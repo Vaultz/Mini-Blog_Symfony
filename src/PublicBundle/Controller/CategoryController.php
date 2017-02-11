@@ -67,9 +67,12 @@ class CategoryController extends Controller
     {
         $deleteForm = $this->createDeleteForm($category);
 
+        $articles = $category->getArticles();
+
         return $this->render('category/show.html.twig', array(
             'category' => $category,
             'delete_form' => $deleteForm->createView(),
+            'articles' => $articles,
         ));
     }
 
@@ -133,4 +136,16 @@ class CategoryController extends Controller
             ->getForm()
         ;
     }
+
+    // /** Get All related articles
+    // * @Route("/{id}", name="category_articles")
+    // **/
+    // private function getArticlesFromId($id) {
+    //   $category = $this->getDoctrine
+    //     ->getRepository('PublicBundle:Category')
+    //     ->find($id);
+    //
+    //   return $articles = $category->getArticles();
+    //
+    // }
 }

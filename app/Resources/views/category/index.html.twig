@@ -1,30 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Categories list</h1>
-
     <table>
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Actions</th>
+                <th>Catégories</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for category in categories %}
             <tr>
-                <td><a href="{{ path('category_show', { 'id': category.id }) }}">{{ category.id }}</a></td>
-                <td>{{ category.name }}</td>
+                <td><a href="{{ path('category_show', { 'id': category.id }) }}">{{ category.name }}</a></td>
                 <td>
+                  {% if app.user %}
                     <ul>
                         <li>
-                            <a href="{{ path('category_show', { 'id': category.id }) }}">show</a>
+                          <a href="{{ path('category_edit', { 'id': category.id }) }}">Modifier le nom</a>
                         </li>
                         <li>
-                            <a href="{{ path('category_edit', { 'id': category.id }) }}">edit</a>
                         </li>
                     </ul>
+                  {% endif %}
                 </td>
             </tr>
         {% endfor %}
@@ -33,7 +30,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('category_new') }}">Create a new category</a>
+            <a href="{{ path('category_new') }}">Nouvelle catégorie</a>
         </li>
     </ul>
 {% endblock %}
