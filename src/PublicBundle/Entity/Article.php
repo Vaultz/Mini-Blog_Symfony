@@ -33,7 +33,7 @@ class Article
     /**
      * @var string
      * @NotBlank(message="L'article doit avoir un corps")
-     * @ORM\Column(name="content", type="string", length=2000, nullable=true)
+     * @ORM\Column(name="content", type="string", length=2000)
      */
     private $content;
 
@@ -71,6 +71,7 @@ class Article
     *      joinColumns={@ORM\JoinColumn(name="article_id", referencedColumnName="id")},
     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
     *      )
+    * @NotBlank(message="Veuillez choisir au moins un tag")
     */
     private $tags;
 

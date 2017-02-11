@@ -21,10 +21,18 @@ class Comment
      */
     private $id;
 
+
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="string", length=2000)
+     * @ORM\Column(name="author", type="string", length=64)
+     */
+    private $author;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content", type="string", length=2000, nullable=false)
      */
     private $content;
 
@@ -100,5 +108,29 @@ class Comment
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set article
+     *
+     * @param \PublicBundle\Entity\Article $article
+     *
+     * @return Comment
+     */
+    public function setArticle(\PublicBundle\Entity\Article $article = null)
+    {
+        $this->article = $article;
+
+        return $this;
+    }
+
+    /**
+     * Get article
+     *
+     * @return \PublicBundle\Entity\Article
+     */
+    public function getArticle()
+    {
+        return $this->article;
     }
 }

@@ -1,10 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Les derniers articles</h1>
-
-
-
+    <h3>Les derniers articles</h3>
     <ul>
       {% for article in lastFiveArticles %}
         <li>
@@ -12,8 +9,4 @@
         </li>
       {% endfor %}
     </ul>
-
-    <script>
-
-    </script>
 {% endblock %}

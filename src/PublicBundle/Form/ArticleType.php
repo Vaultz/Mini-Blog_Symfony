@@ -29,6 +29,14 @@ class ArticleType extends AbstractType
                     'format' => 'ddMMyyy',
                     )
                 )
+            // ->add('date', DateType::class, array(
+            //   'widget' => 'single_text',
+            //   'html5' => false,
+            //   'attr' => array(
+            //       'class' => 'datepicker',
+            //       'type' => 'date'
+            //   ),
+            // ))
             ->add('category', EntityType::class,
                 array(
                     'class' => 'PublicBundle:Category',
@@ -42,6 +50,7 @@ class ArticleType extends AbstractType
                     'multiple' => true
                 )
             )
+
             ;
     }
 
@@ -51,7 +60,8 @@ class ArticleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'PublicBundle\Entity\Article'
+            'data_class' => 'PublicBundle\Entity\Article',
+            'allow_extra_fields' => true
         ));
     }
 

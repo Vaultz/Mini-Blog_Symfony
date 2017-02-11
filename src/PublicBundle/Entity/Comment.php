@@ -21,10 +21,18 @@ class Comment
      */
     private $id;
 
+
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="string", length=2000)
+     * @ORM\Column(name="author", type="string", length=64)
+     */
+    private $author;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content", type="string", length=2000, nullable=false)
      */
     private $content;
 
@@ -124,5 +132,29 @@ class Comment
     public function getArticle()
     {
         return $this->article;
+    }
+
+    /**
+     * Set author
+     *
+     * @param string $author
+     *
+     * @return Comment
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return string
+     */
+    public function getAuthor()
+    {
+        return $this->author;
     }
 }

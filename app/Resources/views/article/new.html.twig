@@ -6,14 +6,13 @@
     {{ form_start(form) }}
         {{ form_errors(form) }}
 
-        {{ form_label(form.name, 'Titre de l\'article', {'label_attr': {'class':'uneclasse'}}) }}
+        {{ form_label(form.name, 'Titre de l\'article', {'label_attr': {'class':''}}) }}
         {{ form_widget(form.name) }}
 
 
         <div class="input-field col s12">
         {{ form_label(form.content, 'Votre article',
             {'attr': {
-                'for': 'textarea1',
         }}) }}
 
         {{ form_widget(form.content,
@@ -25,7 +24,7 @@
 
 
         {{ form_label(form.date, 'Date de publication') }}
-        {{ form_widget(form.date, { 'attr': {'class': 'browser-default'}}) }}
+        {{ form_widget(form.date, {'attr': {'type': 'date'}}) }}
 
 
         {{ form_label(form.category, 'Catégorie de l\'article') }}
@@ -44,7 +43,4 @@
         </li>
     </ul>
 
-    <script>
-
-    </script>
 {% endblock %}
