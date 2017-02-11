@@ -2,6 +2,7 @@
 
 namespace PublicBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -24,14 +25,14 @@ class Article
 
     /**
      * @var string
-     *
      * @ORM\Column(name="name", type="string", length=255)
+     * @NotBlank(message="Veuillez donner un nom à votre article")
      */
     private $name;
 
     /**
      * @var string
-     *
+     * @NotBlank(message="L'article doit avoir un corps")
      * @ORM\Column(name="content", type="string", length=2000, nullable=true)
      */
     private $content;

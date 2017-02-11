@@ -15,28 +15,57 @@
           <div class="nav-wrapper">
             <a href="{{ path('article_recent') }}" class="brand-logo">Miniblog Symfony</a>
             <ul class="right hide-on-med-and-down">
+
+              <!-- ARTICLES -->
               <li><a class="dropdown-button" href="#!" data-activates="dropdownArticles">Articles<i class="material-icons right"></i></a></li>
-              <li><a href="">Articles</a></li>
-              <li><a href="">Partie admin</a></li>
-              <li><a class="dropdown-button" href="#!" data-activates="dropdown1">User<i class="material-icons right"></i></a></li>
+
+              <!-- USERS -->
+              {% if app.user %}
+              <li><a href="{{ path('administration') }}">Administration</a></li>
+              <li><a href="{{ path('logout') }}">Se déconnecter</a></li>
+              {% else %}
+              <li><a href="{{ path('user_new')}}">S'inscrire</a></li>
+              <li><a href="{{ path('login')}}">Se connecter</a></li>
+              {% endif %}
+
+              <!-- CATEGORIES -->
+              <li><a class="dropdown-button" href="#!" data-activates="dropdownCategories">Catégories<i class="material-icons right"></i></a></li>
+
+              <!-- TAGS -->
+              <li><a class="dropdown-button" href="#!" data-activates="dropdownTags">Tags<i class="material-icons right"></i></a></li>
             </ul>
           </div>
         </nav>
 
         <!-- Dropdown articles -->
         <ul id="dropdownArticles" class="dropdown-content">
+          {% if app.user %}
           <li><a href="{{ path('article_new') }}">Nouvel article</a></li>
           <li class="divider"></li>
+          {% endif %}
           <li><a href="{{ path('article_recent' )}}">Les derniers articles</a></li>
           <li class="divider"></li>
           <li><a href="#!">Tous les articles</a></li>
         </ul>
 
-        <ul id="dropdown1" class="dropdown-content">
-          <li><a href="#!">one</a></li>
-          <li><a href="#!">two</a></li>
+
+        <!-- Dropdown categories -->
+        <ul id="dropdownCategories" class="dropdown-content">
+          {% if app.user %}
+          <li><a href="{{ path('category_new') }}">Nouvelle catégorie</a></li>
           <li class="divider"></li>
-          <li><a href="#!">three</a></li>
+          {% endif %}
+          <li><a href="{{ path('category_index' )}}">Voir toutes les catégories</a></li>
+        </ul>
+
+
+        <!-- Dropdown tags -->
+        <ul id="dropdownTags" class="dropdown-content">
+          {% if app.user %}
+          <li><a href="{{ path('tag_new') }}">Nouveau tag</a></li>
+          <li class="divider"></li>
+          {% endif %}
+          <li><a href="{{ path('tag_index' )}}">Voir tous les tags</a></li>
         </ul>
 
         {% block body %}
