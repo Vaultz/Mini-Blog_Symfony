@@ -18,4 +18,9 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
       ->getQuery()
       ->getResult();
   }
+
+  public function getByTagId($tagId) {
+      var_dump($tagId);
+      die();
+  }
 }

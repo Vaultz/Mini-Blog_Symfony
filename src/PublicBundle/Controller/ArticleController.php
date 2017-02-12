@@ -30,7 +30,6 @@ class ArticleController extends Controller
       $em = $this->getDoctrine()->getManager();
 
       $articles = $em->getRepository('PublicBundle:Article')->findAll();
-
       return $this->render('article/index.html.twig', array(
           'articles' => $articles,
       ));
@@ -73,7 +72,23 @@ class ArticleController extends Controller
     public function searchTagAction($searchedTagName) {
         $em = $this->getDoctrine()->getManager();
 
-        $articles = $em->getRepository('PublicBundle:Tag')->getArticlesByTagName($searchedTagName);
+        $tag = $em->getRepository('PublicBundle:Tag')
+            ->findOneBy(array('name' => $searchedTagName))
+            ->getId();
+
+        $articles = $em->getRepository('PublicBundle:Article')
+            ->findBy(array('tags' => $tag));
+
+        var_dump($articles);
+        die();
+
+        // $tagId = $em->getRepository('PublicBundle:Tag')
+        //     ->findOneBy(array('name' => $searchedTagName))
+        //     ->getId();
+
+        //
+        // $articles = $em->getRepository('PublicBundle:Article')
+        //     ->getByTagId($tagId);
 
         return $this->render('article/index.html.twig', array(
             'articles' => $articles,
