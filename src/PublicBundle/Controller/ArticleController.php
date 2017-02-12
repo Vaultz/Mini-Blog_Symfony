@@ -61,6 +61,7 @@ class ArticleController extends Controller
         $form = $this->createForm('PublicBundle\Form\ArticleType', $article);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getUser();
             $article->setUser($user);

@@ -19,24 +19,25 @@ class ArticleType extends AbstractType
         $builder
             ->add('name')
             ->add('content')
-            ->add('date', DateType::class,
-                array(
-                    'placeholder' => array(
-                        'day' => 'Jour',
-                        'month' => 'Mois',
-                        'year' => 'Année',
-                        ),
-                    'format' => 'ddMMyyy',
-                    )
-                )
-            // ->add('date', DateType::class, array(
-            //   'widget' => 'single_text',
-            //   'html5' => false,
-            //   'attr' => array(
-            //       'class' => 'datepicker',
-            //       'type' => 'date'
-            //   ),
-            // ))
+            // ->add('date', DateType::class,
+            //     array(
+            //         'placeholder' => array(
+            //             'day' => 'Jour',
+            //             'month' => 'Mois',
+            //             'year' => 'Année',
+            //             ),
+            //         'format' => 'ddMMyyy',
+            //         )
+            //     )
+            ->add('date', DateType::class, array(
+              'widget' => 'single_text',
+              'html5' => false,
+              'attr' => array(
+                  'class' => 'datepicker picker_input',
+                  'type' => 'date',
+                  'format' => 'yyyy-MM-dd',
+              ),
+            ))
             ->add('category', EntityType::class,
                 array(
                     'class' => 'PublicBundle:Category',

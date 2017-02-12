@@ -77,6 +77,12 @@
         <script>
             $(document).ready(function() {
               $('select').material_select();
+
+              $('.datepicker').pickadate({
+                  selectMonths: true,
+                  selectYears: 15,
+                  format: 'yyyy-mm-dd'
+              });
             });
         </script>
 

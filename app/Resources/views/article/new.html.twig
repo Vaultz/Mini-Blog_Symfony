@@ -28,11 +28,11 @@
 
 
         {{ form_label(form.category, 'Catégorie de l\'article') }}
-        {{ form_widget(form.category, { 'attr': {'class': 'category-selector'}}) }}
+        {{ form_widget(form.category) }}
 
         Tags
         {{ form_label(form.tags, 'Tags') }}
-        {{ form_widget(form.tags, { 'attr': {'class': 'category-selector'}}) }}
+        {{ form_widget(form.tags) }}
 
         <input type="submit" value="Create" />
     {{ form_end(form) }}
