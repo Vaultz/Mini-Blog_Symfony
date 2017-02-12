@@ -10,4 +10,11 @@ namespace PublicBundle\Repository;
  */
 class TagRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getArticlesByTagName($searchedTagName) {
+        $tag = $this->findByName($searchedTagName);
+        var_dump($tag);
+        $articles = $tag->getArticles();
+        var_dump($articles);
+        die();
+    }
 }

@@ -34,3 +34,10 @@ app:
 
 logout:
     path: /logout
+
+searchTag:
+    path:   /searchTag/{searchedTagName}
+    defaults:
+        _controller: PublicBundle:Article:searchTag
+        requirements:
+        methods: GET

@@ -51,13 +51,10 @@ class ArticleController extends Controller
             ->getForm();
 
         if ($request->isMethod('POST')) {
-            if($searchByTagForm->isSubmitted() && $searchByTagForm->isValid()) {
-                $searchByTagForm->handleRequest($request);
+            $searchByTagForm->handleRequest($request);
 
-                $searchedTagName = $request->request->all()['form']['searchTag']);
-                die('ok');
-                return $this->redirectToRoute('search_tag', array('searchedTagName' => $searchTagName));
-            }
+            $searchedTagName = $request->request->all()['form']['searchTag'];
+            return $this->redirectToRoute('search_tag', array('searchedTagName' => $searchedTagName));
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -71,18 +68,16 @@ class ArticleController extends Controller
 
     /**
     * Display the search by tag results
-    * @Route("/searchTag", name="search_tag")
+    * @Route("/searchTag/{searchedTagName}", name="search_tag")
     */
-    public function searchTagAction() {
-        var_dump($searchedTag);
-        die();
-        // $em = $this->getDoctrine()->getManager();
-        //
-        // $articles = $em->getRepository('PublicBundle:Tag')->getArticlesByTagName($tagName);
-        //
-        // return $this->render('article/index.html.twig', array(
-        //     'articles' => $articles,
-        // ));
+    public function searchTagAction($searchedTagName) {
+        $em = $this->getDoctrine()->getManager();
+
+        $articles = $em->getRepository('PublicBundle:Tag')->getArticlesByTagName($searchedTagName);
+
+        return $this->render('article/index.html.twig', array(
+            'articles' => $articles,
+        ));
     }
 
 
