@@ -3,9 +3,7 @@
 security:
 
     encoders:
-        #Symfony\Component\Security\Core\User\User: plaintext
-        PublicBundle\Entity\User: plaintext
-        #     algorithm: bcrypt
+        PublicBundle\Entity\User: bcrypt
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
