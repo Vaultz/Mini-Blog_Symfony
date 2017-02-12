@@ -19,16 +19,6 @@ class ArticleType extends AbstractType
         $builder
             ->add('name')
             ->add('content', TextareaType::class)
-            // ->add('date', DateType::class,
-            //     array(
-            //         'placeholder' => array(
-            //             'day' => 'Jour',
-            //             'month' => 'Mois',
-            //             'year' => 'Année',
-            //             ),
-            //         'format' => 'ddMMyyy',
-            //         )
-            //     )
             ->add('date', DateType::class, array(
               'widget' => 'single_text',
               'html5' => false,

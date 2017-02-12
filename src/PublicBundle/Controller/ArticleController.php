@@ -5,7 +5,12 @@ namespace PublicBundle\Controller;
 use PublicBundle\Entity\Article;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
+
 
 /**
  * Article controller.
@@ -31,21 +36,54 @@ class ArticleController extends Controller
       ));
   }
 
-  /**
-   * Lists the 5 last articles.
-   *
-   * @Route("/recent", name="article_recent")
-   * @Method("GET")
-   */
-  public function recentAction()
-  {
-      $em = $this->getDoctrine()->getManager();
-      $lastFiveArticles = $em->getRepository('PublicBundle:Article')->getLastFiveArticles();
+    /**
+    * Lists the 5 last articles.
+    *
+    * @Route("/recent", name="article_recent")
+    * @Method({"GET", "POST"})
+    */
+    public function recentAction(Request $request)
+    {
+        $searchTag = array('message' => 'Recherche par Tag');
+        $searchByTagForm = $this->createFormBuilder($searchTag)
+            ->add('searchTag', TextType::class)
+            ->add('send', SubmitType::class)
+            ->getForm();
 
-      return $this->render('article/recent.html.twig', array(
-          'lastFiveArticles' => $lastFiveArticles,
-      ));
-  }
+        if ($request->isMethod('POST')) {
+            if($searchByTagForm->isSubmitted() && $searchByTagForm->isValid()) {
+                $searchByTagForm->handleRequest($request);
+
+                $searchedTagName = $request->request->all()['form']['searchTag']);
+                die('ok');
+                return $this->redirectToRoute('search_tag', array('searchedTagName' => $searchTagName));
+            }
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $lastFiveArticles = $em->getRepository('PublicBundle:Article')->getLastFiveArticles();
+
+        return $this->render('article/recent.html.twig', array(
+            'searchByTagForm' => $searchByTagForm->createView(),
+            'lastFiveArticles' => $lastFiveArticles,
+        ));
+    }
+
+    /**
+    * Display the search by tag results
+    * @Route("/searchTag", name="search_tag")
+    */
+    public function searchTagAction() {
+        var_dump($searchedTag);
+        die();
+        // $em = $this->getDoctrine()->getManager();
+        //
+        // $articles = $em->getRepository('PublicBundle:Tag')->getArticlesByTagName($tagName);
+        //
+        // return $this->render('article/index.html.twig', array(
+        //     'articles' => $articles,
+        // ));
+    }
 
 
 
