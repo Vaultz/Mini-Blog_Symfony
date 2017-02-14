@@ -1,17 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
+    {{ form_start(searchForm)}}
+        {{ form_errors(searchForm)}}
+    {{ form_end(searchForm)}}
+
     <h3>Les derniers articles</h3>
-
-    {{ form_start(searchByTagForm)}}
-        {{ form_errors(searchByTagForm)}}
-    {{ form_end(searchByTagForm)}}
-
+    {% if lastFiveArticles|length == 0 %}
+        <p>Aucun article trouvé (T(oo)T)</p>
+    {% else %}
     <ul>
       {% for article in lastFiveArticles %}
         <li>
-          <a href="{{ path('article_show', {'id':article.id}) }}">  {{ article.name }} </a>
+          <a href="{{ path('article_show', {'id':article.id}) }}">  {{ article.name }} </a> : {{ article.content[0:50] }}...
         </li>
       {% endfor %}
     </ul>
+    {% endif %}
 {% endblock %}

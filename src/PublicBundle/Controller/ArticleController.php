@@ -31,6 +31,7 @@ class ArticleController extends Controller
 
       $articles = $em->getRepository('PublicBundle:Article')->findAll();
       return $this->render('article/index.html.twig', array(
+          'searchForm' => $searchForm->createView(),
           'articles' => $articles,
       ));
   }
@@ -44,23 +45,41 @@ class ArticleController extends Controller
     public function recentAction(Request $request)
     {
         $searchTag = array('message' => 'Recherche par Tag');
-        $searchByTagForm = $this->createFormBuilder($searchTag)
-            ->add('searchTag', TextType::class)
+        $searchForm = $this->createFormBuilder($searchTag)
+            ->add('searchTag', TextType::class, array(
+              'label' => "Recherche par tag",
+              'required' => false
+            ))
+            ->add('searchCategory', TextType::class, array(
+              'label' => "Recherche par catégorie",
+              'required' => false
+            ))
             ->add('send', SubmitType::class)
             ->getForm();
 
         if ($request->isMethod('POST')) {
-            $searchByTagForm->handleRequest($request);
+            $searchForm->handleRequest($request);
 
             $searchedTagName = $request->request->all()['form']['searchTag'];
-            return $this->redirectToRoute('search_tag', array('searchedTagName' => $searchedTagName));
+            if ($searchedTagName != null) {
+              return $this->redirectToRoute('search_tag', array(
+                'searchedTagName' => $searchedTagName,
+              ));
+            }
+
+            $searchedCategoryName = $request->request->all()['form']['searchCategory'];
+            if ($searchedCategoryName != null) {
+              return $this->redirectToRoute('search_categ', array(
+                'searchedCategoryName' => $searchedCategoryName
+              ));
+            }
         }
 
         $em = $this->getDoctrine()->getManager();
         $lastFiveArticles = $em->getRepository('PublicBundle:Article')->getLastFiveArticles();
 
         return $this->render('article/recent.html.twig', array(
-            'searchByTagForm' => $searchByTagForm->createView(),
+            'searchForm' => $searchForm->createView(),
             'lastFiveArticles' => $lastFiveArticles,
         ));
     }
@@ -73,29 +92,33 @@ class ArticleController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $tag = $em->getRepository('PublicBundle:Tag')
-            ->findOneBy(array('name' => $searchedTagName))
-            ->getId();
+            ->findBy(array('name' => $searchedTagName))
+            ;
 
-        $articles = $em->getRepository('PublicBundle:Article')
-            ->findBy(array('tags' => $tag));
-
-        var_dump($articles);
-        die();
-
-        // $tagId = $em->getRepository('PublicBundle:Tag')
-        //     ->findOneBy(array('name' => $searchedTagName))
-        //     ->getId();
-
-        //
-        // $articles = $em->getRepository('PublicBundle:Article')
-        //     ->getByTagId($tagId);
+        $articles = $em->getRepository('PublicBundle:Article')->getArticlesByTag($tag);
 
         return $this->render('article/index.html.twig', array(
             'articles' => $articles,
         ));
     }
 
+    /**
+    * Display the search by tag results
+    * @Route("/searchCategory/{searchedCategoryName}", name="search_categ")
+    */
+    public function searchCategoryAction($searchedCategoryName) {
+        $em = $this->getDoctrine()->getManager();
 
+        $category = $em->getRepository('PublicBundle:Category')
+            ->findBy(array('name' => $searchedCategoryName))
+        ;
+
+        $articles = $em->getRepository('PublicBundle:Article')->getArticlesByCategory($category);
+
+        return $this->render('article/index.html.twig', array(
+            'articles' => $articles,
+        ));
+    }
 
     /**
      * Creates a new article entity.

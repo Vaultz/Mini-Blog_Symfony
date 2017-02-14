@@ -3,6 +3,10 @@
 {% block body %}
     <h3>Tous les articles</h3>
 
+    {% if articles|length == 0 %}
+      <p>Aucun article trouvé (T(oo)T)</p>
+
+    {% else %}
 
     <table>
         <thead>
@@ -35,6 +39,8 @@
         {% endfor %}
         </tbody>
     </table>
+
+    {% endif %}
 
     <ul>
         <li>

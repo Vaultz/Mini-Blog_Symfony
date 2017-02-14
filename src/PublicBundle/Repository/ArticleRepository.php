@@ -19,8 +19,26 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
       ->getResult();
   }
 
-  public function getByTagId($tagId) {
-      var_dump($tagId);
-      die();
+  public function getArticlesByTag($tag) {
+    $request = $this->createQueryBuilder('a')
+      ->leftJoin('a.tags', 't')
+      ->where('t.id IN (:tags_id)')
+      ->setParameter('tags_id', $tag)
+      ->getQuery()
+      ->getResult()
+      ;
+      return $request;
   }
+
+  public function getArticlesByCategory($category) {
+    $request = $this->createQueryBuilder('a')
+      ->leftJoin('a.category', 'c')
+      ->where('c.id IN (:category_id)')
+      ->setParameter('category_id', $category)
+      ->getQuery()
+      ->getResult()
+      ;
+      return $request;
+  }
+
 }
