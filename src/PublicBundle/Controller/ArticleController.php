@@ -50,16 +50,26 @@ class ArticleController extends Controller
             $searchForm->handleRequest($request);
 
             $searchedName = $request->request->get('search')['searchName'];
-            if ($searchedName != null) {
-              return $this->redirectToRoute('search_name', array(
-                'searchedName' => $searchedName,
-              ));
+            $searchedTagName = $request->request->get('search')['searchTag'];
+
+            if (($searchedName == null) || ($searchedTagName == null)) {
+              if ($searchedName != null) {
+                return $this->redirectToRoute('search_name', array(
+                  'searchedName' => $searchedName,
+                ));
+              }
+
+              if ($searchedTagName != null) {
+                return $this->redirectToRoute('search_tag', array(
+                  'searchedTagName' => $searchedTagName,
+                ));
+              }
             }
 
-            $searchedTagName = $request->request->get('search')['searchTag'];
-            if ($searchedTagName != null) {
-              return $this->redirectToRoute('search_tag', array(
-                'searchedTagName' => $searchedTagName,
+            else {
+              return $this->redirectToRoute('search_nametag', array(
+                'searchedName' => $searchedName,
+                'searchedTagName' => $searchedTagName
               ));
             }
 
@@ -100,6 +110,26 @@ class ArticleController extends Controller
     public function searchTagAction($searchedTagName) {
         $em = $this->getDoctrine()->getManager();
 
+        $tag = $em->getRepository('PublicBundle:Tag')
+            ->findBy(array('name' => $searchedTagName))
+            ;
+
+        $articles = $em->getRepository('PublicBundle:Article')->getArticlesByTag($tag);
+
+        return $this->render('article/index.html.twig', array(
+            'articles' => $articles,
+        ));
+    }
+
+
+    /**
+    * Display the search by tag results
+    * @Route("/searchNameTag/{searchedName}/{searchedTagName}", name="search_nametag")
+    */
+    public function searchNameAndTagAction($searchedName, $searchedTagName) {
+        $em = $this->getDoctrine()->getManager();
+
+        die("TODO : multicriteria research");
         $tag = $em->getRepository('PublicBundle:Tag')
             ->findBy(array('name' => $searchedTagName))
             ;
