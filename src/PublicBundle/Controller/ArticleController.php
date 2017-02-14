@@ -9,8 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
-
+use PublicBundle\Form\SearchType;
 
 /**
  * Article controller.
@@ -44,35 +43,26 @@ class ArticleController extends Controller
     */
     public function recentAction(Request $request)
     {
-        $searchTag = array('message' => 'Recherche par Tag');
-        $searchForm = $this->createFormBuilder($searchTag)
-            ->add('searchTag', TextType::class, array(
-              'label' => "Recherche par tag",
-              'required' => false
-            ))
-            ->add('searchCategory', TextType::class, array(
-              'label' => "Recherche par catégorie",
-              'required' => false
-            ))
-            ->add('send', SubmitType::class)
-            ->getForm();
+
+        $searchForm = $this->createForm(SearchType::class);
 
         if ($request->isMethod('POST')) {
             $searchForm->handleRequest($request);
 
-            $searchedTagName = $request->request->all()['form']['searchTag'];
+            $searchedName = $request->request->get('search')['searchName'];
+            if ($searchedName != null) {
+              return $this->redirectToRoute('search_name', array(
+                'searchedName' => $searchedName,
+              ));
+            }
+
+            $searchedTagName = $request->request->get('search')['searchTag'];
             if ($searchedTagName != null) {
               return $this->redirectToRoute('search_tag', array(
                 'searchedTagName' => $searchedTagName,
               ));
             }
 
-            $searchedCategoryName = $request->request->all()['form']['searchCategory'];
-            if ($searchedCategoryName != null) {
-              return $this->redirectToRoute('search_categ', array(
-                'searchedCategoryName' => $searchedCategoryName
-              ));
-            }
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -83,6 +73,25 @@ class ArticleController extends Controller
             'lastFiveArticles' => $lastFiveArticles,
         ));
     }
+
+
+
+    /**
+    * Display the search by name results
+    * @Route("/searchName/{searchedName}", name="search_name")
+    */
+    public function searchNameAction($searchedName) {
+        $em = $this->getDoctrine()->getManager();
+
+        $articles = $em->getRepository('PublicBundle:Article')
+            ->findBy(array('name' => $searchedName))
+          ;
+
+        return $this->render('article/index.html.twig', array(
+            'articles' => $articles,
+        ));
+    }
+
 
     /**
     * Display the search by tag results
@@ -96,24 +105,6 @@ class ArticleController extends Controller
             ;
 
         $articles = $em->getRepository('PublicBundle:Article')->getArticlesByTag($tag);
-
-        return $this->render('article/index.html.twig', array(
-            'articles' => $articles,
-        ));
-    }
-
-    /**
-    * Display the search by tag results
-    * @Route("/searchCategory/{searchedCategoryName}", name="search_categ")
-    */
-    public function searchCategoryAction($searchedCategoryName) {
-        $em = $this->getDoctrine()->getManager();
-
-        $category = $em->getRepository('PublicBundle:Category')
-            ->findBy(array('name' => $searchedCategoryName))
-        ;
-
-        $articles = $em->getRepository('PublicBundle:Article')->getArticlesByCategory($category);
 
         return $this->render('article/index.html.twig', array(
             'articles' => $articles,
