@@ -26,6 +26,9 @@ class ArticleController extends Controller
    */
   public function indexAction()
   {
+
+      $searchForm = $this->createForm(SearchType::class);
+
       $em = $this->getDoctrine()->getManager();
 
       $articles = $em->getRepository('PublicBundle:Article')->findAll();
