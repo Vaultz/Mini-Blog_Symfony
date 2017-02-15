@@ -31,9 +31,11 @@
         </tbody>
     </table>
 
+    {% if app.user %}
     <ul>
         <li>
-            <a href="{{ path('tag_new') }}">Create a new tag</a>
+            <a href="{{ path('tag_new') }}">Nouveau tag</a>
         </li>
     </ul>
+    {% endif %}
 {% endblock %}
